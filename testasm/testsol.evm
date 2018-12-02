@@ -1,0 +1,250 @@
+    /* "testsol.sol":320:593  contract OverflowUnderFlow {... */
+  mstore(0x40, 0x80)
+    /* "testsol.sol":372:373  0 */
+  0x0
+    /* "testsol.sol":353:373  uint public zero = 0 */
+  dup1
+  sstore
+    /* "testsol.sol":397:405  2**256-1 */
+  0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    /* "testsol.sol":379:405  uint public max = 2**256-1 */
+  0x1
+  sstore
+    /* "testsol.sol":320:593  contract OverflowUnderFlow {... */
+  callvalue
+    /* "--CODEGEN--":8:17   */
+  dup1
+    /* "--CODEGEN--":5:7   */
+  iszero
+  tag_1
+  jumpi
+    /* "--CODEGEN--":30:31   */
+  0x0
+    /* "--CODEGEN--":27:28   */
+  dup1
+    /* "--CODEGEN--":20:32   */
+  revert
+    /* "--CODEGEN--":5:7   */
+tag_1:
+    /* "testsol.sol":320:593  contract OverflowUnderFlow {... */
+  pop
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x0
+  codecopy
+  0x0
+  return
+stop
+
+sub_0: assembly {
+        /* "testsol.sol":320:593  contract OverflowUnderFlow {... */
+      mstore(0x40, 0x80)
+      jumpi(tag_1, lt(calldatasize, 0x4))
+      calldataload(0x0)
+      0x100000000000000000000000000000000000000000000000000000000
+      swap1
+      div
+      0xffffffff
+      and
+      dup1
+      0x4264c3
+      eq
+      tag_2
+      jumpi
+      dup1
+      0x6ac5db19
+      eq
+      tag_3
+      jumpi
+      dup1
+      0xbc1b392d
+      eq
+      tag_4
+      jumpi
+      dup1
+      0xdc75bec7
+      eq
+      tag_5
+      jumpi
+    tag_1:
+      0x0
+      dup1
+      revert
+        /* "testsol.sol":539:591  function overflow() public {... */
+    tag_2:
+      callvalue
+        /* "--CODEGEN--":8:17   */
+      dup1
+        /* "--CODEGEN--":5:7   */
+      iszero
+      tag_6
+      jumpi
+        /* "--CODEGEN--":30:31   */
+      0x0
+        /* "--CODEGEN--":27:28   */
+      dup1
+        /* "--CODEGEN--":20:32   */
+      revert
+        /* "--CODEGEN--":5:7   */
+    tag_6:
+        /* "testsol.sol":539:591  function overflow() public {... */
+      pop
+      tag_7
+      jump(tag_8)
+    tag_7:
+      stop
+        /* "testsol.sol":379:405  uint public max = 2**256-1 */
+    tag_3:
+      callvalue
+        /* "--CODEGEN--":8:17   */
+      dup1
+        /* "--CODEGEN--":5:7   */
+      iszero
+      tag_9
+      jumpi
+        /* "--CODEGEN--":30:31   */
+      0x0
+        /* "--CODEGEN--":27:28   */
+      dup1
+        /* "--CODEGEN--":20:32   */
+      revert
+        /* "--CODEGEN--":5:7   */
+    tag_9:
+        /* "testsol.sol":379:405  uint public max = 2**256-1 */
+      pop
+      tag_10
+      jump(tag_11)
+    tag_10:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "testsol.sol":353:373  uint public zero = 0 */
+    tag_4:
+      callvalue
+        /* "--CODEGEN--":8:17   */
+      dup1
+        /* "--CODEGEN--":5:7   */
+      iszero
+      tag_12
+      jumpi
+        /* "--CODEGEN--":30:31   */
+      0x0
+        /* "--CODEGEN--":27:28   */
+      dup1
+        /* "--CODEGEN--":20:32   */
+      revert
+        /* "--CODEGEN--":5:7   */
+    tag_12:
+        /* "testsol.sol":353:373  uint public zero = 0 */
+      pop
+      tag_13
+      jump(tag_14)
+    tag_13:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "testsol.sol":452:506  function underflow() public {... */
+    tag_5:
+      callvalue
+        /* "--CODEGEN--":8:17   */
+      dup1
+        /* "--CODEGEN--":5:7   */
+      iszero
+      tag_15
+      jumpi
+        /* "--CODEGEN--":30:31   */
+      0x0
+        /* "--CODEGEN--":27:28   */
+      dup1
+        /* "--CODEGEN--":20:32   */
+      revert
+        /* "--CODEGEN--":5:7   */
+    tag_15:
+        /* "testsol.sol":452:506  function underflow() public {... */
+      pop
+      tag_16
+      jump(tag_17)
+    tag_16:
+      stop
+        /* "testsol.sol":539:591  function overflow() public {... */
+    tag_8:
+        /* "testsol.sol":583:584  1 */
+      0x1
+        /* "testsol.sol":576:579  max */
+      dup1
+      0x0
+        /* "testsol.sol":576:584  max += 1 */
+      dup3
+      dup3
+      sload
+      add
+      swap3
+      pop
+      pop
+      dup2
+      swap1
+      sstore
+      pop
+        /* "testsol.sol":539:591  function overflow() public {... */
+      jump	// out
+        /* "testsol.sol":379:405  uint public max = 2**256-1 */
+    tag_11:
+      sload(0x1)
+      dup2
+      jump	// out
+        /* "testsol.sol":353:373  uint public zero = 0 */
+    tag_14:
+      sload(0x0)
+      dup2
+      jump	// out
+        /* "testsol.sol":452:506  function underflow() public {... */
+    tag_17:
+        /* "testsol.sol":498:499  1 */
+      0x1
+        /* "testsol.sol":490:494  zero */
+      0x0
+      dup1
+        /* "testsol.sol":490:499  zero -= 1 */
+      dup3
+      dup3
+      sload
+      sub
+      swap3
+      pop
+      pop
+      dup2
+      swap1
+      sstore
+      pop
+        /* "testsol.sol":452:506  function underflow() public {... */
+      jump	// out
+
+    auxdata: 0xa165627a7a72305820d257090f5a1ba2a7cca651d64cfd859a824b6da655023df8d71ca0bec37ddc820029
+}

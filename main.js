@@ -5,6 +5,19 @@ var Transaction = require('ethereumjs-tx')
 var VM = require('ethereumjs-vm')
 var Trie = require('merkle-patricia-tree')
 var utils = require('ethereumjs-util')
+var log4js = require('log4js');
+const lookupOpcode = require('./opcodes.js')
+log4js.configure({
+  appenders: {
+    traceLogs: { type: 'file', filename: 'trace.log' },
+    console: { type: 'console' }
+  },
+ categories: {
+    trace: { appenders: ['traceLogs'], level: 'info' },
+    default: { appenders: [ 'traceLogs'], level: 'info' }
+}
+});
+var logger = log4js.getLogger('traceLogs'); 
 
 var keyPair = require('./key-pair')
 
@@ -14,32 +27,27 @@ var vm = new VM({state: stateTrie})
 
 // overflow/underflow (toy) detector
 var pcFlag = 0
-var opA
 var res
 vm.on('step', function(e){
   var L = e.stack.length
+  if(pcFlag == -1){
+    pcFlag = 0
+    return;
+  }
   if (pcFlag != 0){
-    console.log('Result:', e.stack[L-1].toString(16))
+    logger.info('Result:', e.stack[L-1].toString(16))
     res = e.stack[L-1]
-    if (pcFlag == 1 && res.lt(opA)) console.log('--- Unsigned Overflow Detected ---')
-    if (pcFlag == 2 && res.gt(opA)) console.log('--- Unsigned Underflow Detected ---')
-    console.log()
     pcFlag = 0
   }
-  if (e.opcode.name == 'ADD'){
-    console.log('Trace:', e.opcode.name)
-    console.log('Arg 0:', e.stack[L-1].toString(16))
-    console.log('Arg 1:', e.stack[L-2].toString(16))
-    opA = e.stack[L-1]
-    pcFlag = 1
-  }
-  if (e.opcode.name == 'SUB'){
-    console.log('Trace:', e.opcode.name)
-    console.log('Arg 0:', e.stack[L-1].toString(16))
-    console.log('Arg 1:', e.stack[L-2].toString(16))
-    opA = e.stack[L-1]
-    pcFlag = 2
-  }
+  var result=lookupOpcode(e.opcode, true).opcode;
+  logger.info('Trace:', result.name)
+  for(var i=0;i<result.in;i++)
+    logger.info('Arg',i+': '+e.stack[L-i-1].toString(16));
+  if(result.out==0)
+    pcFlag=-1;
+  else
+    pcFlag=result.opcode;
+  
 })
 
 

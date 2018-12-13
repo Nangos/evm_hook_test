@@ -1,5 +1,6 @@
 compile:
-	rm testasm/*
+	rm -rf testasm
+	mkdir testasm
 	solc --asm -o testasm testsol.sol
 	solc --bin -o testasm testsol.sol
 	mv testasm/*.evm testasm/testsol.evm
